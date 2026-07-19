@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Smart Traders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">ST</span> Smart Traders</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="register.html">Register Business</a>
+      <a href="products.html">Products</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="index.html#contact">Contact Us</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button class="nav-burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="glass form-card fade-up">
+    <div class="form-tabs">
+      <button class="form-tab active" data-tab="business">Business Login</button>
+      <button class="form-tab" data-tab="buyer">Buyer Login</button>
+    </div>
+
+    <form id="business-login" novalidate>
+      <h2 style="margin-bottom:4px;">Welcome back</h2>
+      <p style="margin-bottom:20px;">Login to your business dashboard.</p>
+      <div class="field" id="f-email">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@business.com">
+        <div class="error">Enter a valid email address.</div>
+      </div>
+      <div class="field" id="f-pass">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" placeholder="Your password">
+        <div class="error">Incorrect email or password.</div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Login to Dashboard</button>
+      <p class="form-foot">No account yet? <a href="register.html" style="color:var(--blue-bright);font-weight:600;">Register your business</a></p>
+      <p class="hint" style="text-align:center;margin-top:10px;">Demo tip: register a business first, then log in with the same email.</p>
+    </form>
+
+    <form id="buyer-login" novalidate style="display:none;">
+      <h2 style="margin-bottom:4px;">Welcome back</h2>
+      <p style="margin-bottom:20px;">Login to shop and track your orders.</p>
+      <div class="field" id="f-bemail">
+        <label for="bemail">Email</label>
+        <input type="email" id="bemail" placeholder="you@email.com">
+        <div class="error">Enter a valid email address.</div>
+      </div>
+      <div class="field" id="f-bpass">
+        <label for="bpass">Password</label>
+        <input type="password" id="bpass" placeholder="Your password">
+        <div class="error">Incorrect email or password.</div>
+      </div>
+      <button type="submit" class="btn btn-accent btn-block">Login &amp; Shop</button>
+      <p class="form-foot">No account yet? <a href="register.html" style="color:var(--green-bright);font-weight:600;">Create a buyer account</a></p>
+    </form>
+  </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+document.querySelectorAll('.form-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.form-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const isBiz = tab.dataset.tab === 'business';
+    document.getElementById('business-login').style.display = isBiz ? 'block' : 'none';
+    document.getElementById('buyer-login').style.display = isBiz ? 'none' : 'block';
+  });
+});
+
+document.getElementById('business-login').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('pass').value;
+  const biz = Store.findBusinessByEmail(email);
+  document.getElementById('f-email').classList.toggle('invalid', !Utils.isEmail(email));
+  if(!Utils.isEmail(email)) return;
+  if(!biz || biz.password !== pass){
+    document.getElementById('f-pass').classList.add('invalid');
+    Toast.show('Check your email and password and try again.', 'error');
+    return;
+  }
+  document.getElementById('f-pass').classList.remove('invalid');
+  Store.setSession({ role:'business', id: biz.id, name: biz.name });
+  Toast.show(`Welcome back, ${biz.name}!`, 'success');
+  setTimeout(()=> window.location.href = 'dashboard.html', 900);
+});
+
+document.getElementById('buyer-login').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('bemail').value.trim();
+  const pass = document.getElementById('bpass').value;
+  const buyer = Store.findBuyerByEmail(email);
+  document.getElementById('f-bemail').classList.toggle('invalid', !Utils.isEmail(email));
+  if(!Utils.isEmail(email)) return;
+  if(!buyer || buyer.password !== pass){
+    document.getElementById('f-bpass').classList.add('invalid');
+    Toast.show('Check your email and password and try again.', 'error');
+    return;
+  }
+  document.getElementById('f-bpass').classList.remove('invalid');
+  Store.setSession({ role:'buyer', id: buyer.id, name: buyer.name });
+  Toast.show(`Welcome back, ${buyer.name}!`, 'success');
+  setTimeout(()=> window.location.href = 'products.html', 900);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Smart Traders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">ST</span> Smart Traders</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="register.html" class="active">Register Business</a>
+      <a href="products.html">Products</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="index.html#contact">Contact Us</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="login.html" class="btn btn-ghost btn-sm">Login</a>
+      <button class="nav-burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="glass form-card form-wide fade-up">
+    <div class="form-tabs">
+      <button class="form-tab active" data-tab="business">Business Registration</button>
+      <button class="form-tab" data-tab="buyer">Buyer Registration</button>
+    </div>
+
+    <!-- ===================== BUSINESS FORM ===================== -->
+    <form id="business-form" novalidate>
+      <h2 style="margin-bottom:4px;">Register your business</h2>
+      <p style="margin-bottom:20px;">Get a storefront, a dashboard, and a digital debt book in minutes.</p>
+
+      <div class="field" id="f-bizName">
+        <label for="bizName">Business Name</label>
+        <input type="text" id="bizName" placeholder="e.g. Mama Njeri Traders">
+        <div class="error">Please enter your business name.</div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-ownerName">
+          <label for="ownerName">Owner Name</label>
+          <input type="text" id="ownerName" placeholder="Full name">
+          <div class="error">Please enter the owner's name.</div>
+        </div>
+        <div class="field" id="f-bizCategory">
+          <label for="bizCategory">Business Category</label>
+          <select id="bizCategory">
+            <option value="">Select category</option>
+            <option>Fashion &amp; Textiles</option>
+            <option>Electronics</option>
+            <option>Groceries &amp; Food</option>
+            <option>Home &amp; Living</option>
+            <option>Beauty &amp; Health</option>
+            <option>Hardware</option>
+            <option>Other</option>
+          </select>
+          <div class="error">Please choose a category.</div>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-bizEmail">
+          <label for="bizEmail">Email Address</label>
+          <input type="email" id="bizEmail" placeholder="you@business.com">
+          <div class="error">Enter a valid email address.</div>
+        </div>
+        <div class="field" id="f-bizPhone">
+          <label for="bizPhone">Phone Number</label>
+          <input type="tel" id="bizPhone" placeholder="+254 7xx xxx xxx">
+          <div class="error">Enter a valid phone number.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-bizLocation">
+        <label for="bizLocation">Business Location</label>
+        <input type="text" id="bizLocation" placeholder="e.g. Gikomba Market, Nairobi">
+        <div class="error">Please enter your business location.</div>
+      </div>
+
+      <div class="field" id="f-bizDesc">
+        <label for="bizDesc">Business Description</label>
+        <textarea id="bizDesc" placeholder="Tell buyers what you sell..."></textarea>
+        <div class="error">Please add a short description.</div>
+      </div>
+
+      <div class="field">
+        <label for="bizLogo">Business Logo</label>
+        <input type="file" id="bizLogo" accept="image/*">
+        <div class="hint">Optional — stored on this device only for the demo.</div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-bizPass">
+          <label for="bizPass">Password</label>
+          <input type="password" id="bizPass" placeholder="Minimum 6 characters">
+          <div class="error">Password must be at least 6 characters.</div>
+        </div>
+        <div class="field" id="f-bizPass2">
+          <label for="bizPass2">Confirm Password</label>
+          <input type="password" id="bizPass2" placeholder="Re-enter password">
+          <div class="error">Passwords do not match.</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Register Business</button>
+      <p class="form-foot">Already registered? <a href="login.html" style="color:var(--blue-bright);font-weight:600;">Login here</a></p>
+    </form>
+
+    <!-- ===================== BUYER FORM ===================== -->
+    <form id="buyer-form" novalidate style="display:none;">
+      <h2 style="margin-bottom:4px;">Create a buyer account</h2>
+      <p style="margin-bottom:20px;">Browse products, place orders, and track deliveries.</p>
+
+      <div class="field" id="f-buyName">
+        <label for="buyName">Full Name</label>
+        <input type="text" id="buyName" placeholder="Your full name">
+        <div class="error">Please enter your full name.</div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-buyEmail">
+          <label for="buyEmail">Email</label>
+          <input type="email" id="buyEmail" placeholder="you@email.com">
+          <div class="error">Enter a valid email address.</div>
+        </div>
+        <div class="field" id="f-buyPhone">
+          <label for="buyPhone">Phone Number</label>
+          <input type="tel" id="buyPhone" placeholder="+254 7xx xxx xxx">
+          <div class="error">Enter a valid phone number.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-buyAddress">
+        <label for="buyAddress">Delivery Address</label>
+        <input type="text" id="buyAddress" placeholder="Street, estate, city">
+        <div class="error">Please enter a delivery address.</div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-buyPass">
+          <label for="buyPass">Password</label>
+          <input type="password" id="buyPass" placeholder="Minimum 6 characters">
+          <div class="error">Password must be at least 6 characters.</div>
+        </div>
+        <div class="field" id="f-buyPass2">
+          <label for="buyPass2">Confirm Password</label>
+          <input type="password" id="buyPass2" placeholder="Re-enter password">
+          <div class="error">Passwords do not match.</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-accent btn-block">Create Buyer Account</button>
+      <p class="form-foot">Already have an account? <a href="login.html" style="color:var(--green-bright);font-weight:600;">Login here</a></p>
+    </form>
+  </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+// ---------- Tab switching ----------
+document.querySelectorAll('.form-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.form-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const isBiz = tab.dataset.tab === 'business';
+    document.getElementById('business-form').style.display = isBiz ? 'block' : 'none';
+    document.getElementById('buyer-form').style.display = isBiz ? 'none' : 'block';
+  });
+});
+
+function setInvalid(fieldId, invalid){
+  const el = document.getElementById(fieldId);
+  if(el) el.classList.toggle('invalid', invalid);
+}
+
+// ---------- Business registration ----------
+document.getElementById('business-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('bizName').value.trim();
+  const owner = document.getElementById('ownerName').value.trim();
+  const category = document.getElementById('bizCategory').value;
+  const email = document.getElementById('bizEmail').value.trim();
+  const phone = document.getElementById('bizPhone').value.trim();
+  const location = document.getElementById('bizLocation').value.trim();
+  const desc = document.getElementById('bizDesc').value.trim();
+  const pass = document.getElementById('bizPass').value;
+  const pass2 = document.getElementById('bizPass2').value;
+
+  let valid = true;
+  const checks = [
+    ['f-bizName', !!name], ['f-ownerName', !!owner], ['f-bizCategory', !!category],
+    ['f-bizEmail', Utils.isEmail(email)], ['f-bizPhone', Utils.isPhone(phone)],
+    ['f-bizLocation', !!location], ['f-bizDesc', desc.length >= 10],
+    ['f-bizPass', pass.length >= 6], ['f-bizPass2', pass === pass2 && pass2.length>0]
+  ];
+  checks.forEach(([id, ok])=>{ setInvalid(id, !ok); if(!ok) valid = false; });
+
+  if(!valid){ Toast.show('Please fix the highlighted fields.', 'error'); return; }
+  if(Store.findBusinessByEmail(email)){ setInvalid('f-bizEmail', true); Toast.show('An account with this email already exists.', 'error'); return; }
+
+  const business = {
+    id: Utils.uid('BIZ'), name, owner, category, email, phone, location, description: desc,
+    logo: '', password: pass, createdAt: Date.now(), theme: 'light'
+  };
+  Store.saveBusiness(business);
+  Store.addNotification({ type:'system', title:'Welcome to Smart Traders', message:`${name} was registered successfully.`, businessId: business.id });
+  Toast.show(`Business ID: ${business.id}. Redirecting to login...`, 'success', 'Registration successful');
+  setTimeout(()=> window.location.href = 'login.html', 1400);
+});
+
+// ---------- Buyer registration ----------
+document.getElementById('buyer-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('buyName').value.trim();
+  const email = document.getElementById('buyEmail').value.trim();
+  const phone = document.getElementById('buyPhone').value.trim();
+  const address = document.getElementById('buyAddress').value.trim();
+  const pass = document.getElementById('buyPass').value;
+  const pass2 = document.getElementById('buyPass2').value;
+
+  let valid = true;
+  const checks = [
+    ['f-buyName', !!name], ['f-buyEmail', Utils.isEmail(email)], ['f-buyPhone', Utils.isPhone(phone)],
+    ['f-buyAddress', !!address], ['f-buyPass', pass.length >= 6], ['f-buyPass2', pass === pass2 && pass2.length>0]
+  ];
+  checks.forEach(([id, ok])=>{ setInvalid(id, !ok); if(!ok) valid = false; });
+
+  if(!valid){ Toast.show('Please fix the highlighted fields.', 'error'); return; }
+  if(Store.findBuyerByEmail(email)){ setInvalid('f-buyEmail', true); Toast.show('An account with this email already exists.', 'error'); return; }
+
+  const buyer = { id: Utils.uid('BUY'), name, email, phone, address, password: pass, createdAt: Date.now() };
+  Store.saveBuyer(buyer);
+  Toast.show('Account created. Redirecting to login...', 'success', 'Registration successful');
+  setTimeout(()=> window.location.href = 'login.html', 1400);
+});
+</script>
+</body>
+</html>

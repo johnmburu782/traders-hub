@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Smart Traders</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html" style="margin-bottom:18px;"><span class="brand-mark">ST</span> Smart Traders</a>
+
+    <div class="side-section-label">Overview</div>
+    <a class="side-link active" data-view="overview" href="#overview">📊 Overview</a>
+    <a class="side-link" data-view="notifications" href="#notifications">🔔 Notifications <span id="notif-count" class="badge badge-red" style="margin-left:auto;display:none;"></span></a>
+
+    <div class="side-section-label">Selling</div>
+    <a class="side-link" data-view="products" href="#products">📦 Products</a>
+    <a class="side-link" data-view="orders" href="#orders">🧾 Orders</a>
+
+    <div class="side-section-label">Money</div>
+    <a class="side-link" data-view="debtors" href="#debtors">📒 Debtors</a>
+    <a class="side-link" data-view="reports" href="#reports">📈 Reports</a>
+
+    <div class="side-section-label">Account</div>
+    <a class="side-link" data-view="profile" href="#profile">🏬 Business Profile</a>
+    <a class="side-link" href="#" data-logout>🚪 Logout</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="flex gap-12">
+        <button class="nav-burger" id="sidebar-burger" style="display:flex;">☰</button>
+        <div>
+          <h2 id="view-title" style="margin-bottom:2px;">Overview</h2>
+          <p class="text-faint mono" id="biz-tag" style="margin:0;font-size:12.5px;"></p>
+        </div>
+      </div>
+      <div class="flex gap-12">
+        <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <div class="flex gap-8">
+          <div class="testimonial-avatar" id="biz-avatar">ST</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== OVERVIEW ===================== -->
+    <section class="view" id="view-overview">
+      <div class="kpi-grid">
+        <div class="card kpi-card fade-up"><span class="kpi-icon">📦</span><div class="kpi-label">Total Products</div><div class="kpi-value" id="kpi-products">0</div></div>
+        <div class="card kpi-card fade-up" style="animation-delay:.03s;"><span class="kpi-icon">🧾</span><div class="kpi-label">Total Orders</div><div class="kpi-value" id="kpi-orders">0</div></div>
+        <div class="card kpi-card fade-up" style="animation-delay:.06s;"><span class="kpi-icon">👥</span><div class="kpi-label">Total Customers</div><div class="kpi-value" id="kpi-customers">0</div></div>
+        <div class="card kpi-card fade-up" style="animation-delay:.09s;"><span class="kpi-icon">📒</span><div class="kpi-label">Outstanding Debts</div><div class="kpi-value" id="kpi-debts">KES 0</div></div>
+        <div class="card kpi-card fade-up" style="animation-delay:.12s;"><span class="kpi-icon">💰</span><div class="kpi-label">Total Revenue</div><div class="kpi-value" id="kpi-revenue">KES 0</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card panel">
+          <div class="panel-head"><h3>Revenue — last 6 months</h3></div>
+          <div class="chart-wrap"><canvas id="chart-revenue"></canvas></div>
+        </div>
+        <div class="card panel">
+          <div class="panel-head"><h3>Best selling products</h3></div>
+          <div class="chart-wrap"><canvas id="chart-bestsellers"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-head"><h3>Recent orders</h3><a href="#orders" class="btn btn-ghost btn-sm" data-view-link="orders">View all</a></div>
+        <div class="table-wrap"><table id="recent-orders-table"><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ===================== PRODUCTS ===================== -->
+    <section class="view" id="view-products" style="display:none;">
+      <div class="panel-head" style="margin-bottom:16px;">
+        <div class="search-wrap"><span class="icon">🔎</span><input type="text" id="product-search" placeholder="Search your products..."></div>
+        <button class="btn btn-primary" id="btn-add-product">+ Add Product</button>
+      </div>
+      <div class="grid-3" id="product-grid"></div>
+      <div class="empty-state" id="product-empty" style="display:none;">
+        <div class="glyph">📦</div>
+        <p>No products yet. Add your first product to start selling.</p>
+      </div>
+    </section>
+
+    <!-- ===================== ORDERS ===================== -->
+    <section class="view" id="view-orders" style="display:none;">
+      <div class="card panel">
+        <div class="panel-head"><h3>All orders</h3></div>
+        <div class="table-wrap"><table id="orders-table"><thead><tr><th>Order No.</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+        <div class="empty-state" id="orders-empty" style="display:none;"><div class="glyph">🧾</div><p>No orders yet. Orders placed by buyers will show up here.</p></div>
+      </div>
+    </section>
+
+    <!-- ===================== DEBTORS ===================== -->
+    <section class="view" id="view-debtors" style="display:none;">
+      <div class="panel-head" style="margin-bottom:16px;">
+        <div class="search-wrap"><span class="icon">🔎</span><input type="text" id="debtor-search" placeholder="Search debtors by name or phone..."></div>
+        <div class="flex gap-8">
+          <button class="btn btn-ghost" id="btn-debt-report">Generate Debt Report</button>
+          <button class="btn btn-primary" id="btn-add-debtor">+ Add Debtor</button>
+        </div>
+      </div>
+      <div class="card panel">
+        <div class="table-wrap">
+          <table id="debtors-table">
+            <thead><tr><th>Customer</th><th>Phone</th><th>Product</th><th>Amount Owed</th><th>Due Date</th><th>Status</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="debtors-empty" style="display:none;"><div class="glyph">📒</div><p>No debtors recorded. Add one to start tracking balances.</p></div>
+      </div>
+    </section>
+
+    <!-- ===================== REPORTS ===================== -->
+    <section class="view" id="view-reports" style="display:none;">
+      <div class="grid-2">
+        <div class="card panel"><div class="panel-head"><h3>Sales report</h3></div><div class="chart-wrap"><canvas id="chart-sales"></canvas></div></div>
+        <div class="card panel"><div class="panel-head"><h3>Debt report</h3></div><div class="chart-wrap"><canvas id="chart-debt"></canvas></div></div>
+        <div class="card panel"><div class="panel-head"><h3>Customer report</h3></div><div class="chart-wrap"><canvas id="chart-customers"></canvas></div></div>
+        <div class="card panel"><div class="panel-head"><h3>Monthly revenue</h3></div><div class="chart-wrap"><canvas id="chart-monthly-revenue"></canvas></div></div>
+      </div>
+    </section>
+
+    <!-- ===================== NOTIFICATIONS ===================== -->
+    <section class="view" id="view-notifications" style="display:none;">
+      <div class="card panel">
+        <div class="panel-head"><h3>Notifications</h3><button class="btn btn-ghost btn-sm" id="btn-clear-notifs">Mark all as read</button></div>
+        <div id="notif-list"></div>
+        <div class="empty-state" id="notif-empty" style="display:none;"><div class="glyph">🔔</div><p>You're all caught up.</p></div>
+      </div>
+    </section>
+
+    <!-- ===================== PROFILE ===================== -->
+    <section class="view" id="view-profile" style="display:none;">
+      <div class="card panel" style="max-width:640px;">
+        <div class="panel-head"><h3>Business profile</h3><span class="stamp" id="profile-stamp">ID</span></div>
+        <form id="profile-form">
+          <div class="field"><label>Business Name</label><input type="text" id="p-name"></div>
+          <div class="row-2">
+            <div class="field"><label>Owner Name</label><input type="text" id="p-owner"></div>
+            <div class="field"><label>Category</label><input type="text" id="p-category"></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label>Email</label><input type="email" id="p-email"></div>
+            <div class="field"><label>Phone</label><input type="tel" id="p-phone"></div>
+          </div>
+          <div class="field"><label>Location</label><input type="text" id="p-location"></div>
+          <div class="field"><label>Description</label><textarea id="p-desc"></textarea></div>
+          <button class="btn btn-primary" type="submit">Save Changes</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== PRODUCT MODAL ===================== -->
+<div class="modal-backdrop" id="product-modal">
+  <div class="modal glass">
+    <div class="modal-head"><h3 id="product-modal-title">Add Product</h3><button class="icon-btn" data-close-modal="product-modal">✕</button></div>
+    <form id="product-form">
+      <input type="hidden" id="pf-id">
+      <div class="field"><label>Product Name</label><input type="text" id="pf-name" required></div>
+      <div class="row-2">
+        <div class="field"><label>Category</label><input type="text" id="pf-category" placeholder="e.g. Fabrics"></div>
+        <div class="field"><label>Price (KES)</label><input type="number" id="pf-price" min="0" required></div>
+      </div>
+      <div class="row-2">
+        <div class="field"><label>Quantity</label><input type="number" id="pf-qty" min="0" required></div>
+        <div class="field"><label>Discount (%)</label><input type="number" id="pf-discount" min="0" max="90" value="0"></div>
+      </div>
+      <div class="field"><label>Description</label><textarea id="pf-desc" placeholder="Short product description"></textarea></div>
+      <div class="field"><label>Product Image</label><input type="file" id="pf-image" accept="image/*"><div class="hint">Optional — a placeholder icon is used in this demo.</div></div>
+      <div class="field"><label>Availability</label>
+        <select id="pf-availability"><option value="in-stock">In stock</option><option value="out-of-stock">Out of stock</option></select>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Save Product</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== DEBTOR MODAL ===================== -->
+<div class="modal-backdrop" id="debtor-modal">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Add Debtor</h3><button class="icon-btn" data-close-modal="debtor-modal">✕</button></div>
+    <form id="debtor-form">
+      <div class="field"><label>Customer Name</label><input type="text" id="df-name" required></div>
+      <div class="field"><label>Phone Number</label><input type="tel" id="df-phone" required></div>
+      <div class="field"><label>Product Purchased</label><input type="text" id="df-product" required></div>
+      <div class="row-2">
+        <div class="field"><label>Amount Owed (KES)</label><input type="number" id="df-amount" min="0" required></div>
+        <div class="field"><label>Due Date</label><input type="date" id="df-due" required></div>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Save Debtor</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

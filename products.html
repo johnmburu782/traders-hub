@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Smart Traders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">ST</span> Smart Traders</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="register.html">Register Business</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="index.html#contact">Contact Us</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button class="icon-btn" id="btn-open-cart" aria-label="Cart" style="position:relative;">🛒<span id="cart-count" class="badge badge-red" style="position:absolute;top:-8px;right:-8px;display:none;">0</span></button>
+      <span id="buyer-tag" class="text-faint" style="font-size:13px;display:none;"></span>
+      <a href="login.html" class="btn btn-ghost btn-sm" id="btn-login-link">Login</a>
+      <a href="#" class="btn btn-ghost btn-sm" id="btn-logout-link" style="display:none;" data-logout>Logout</a>
+      <button class="nav-burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main class="container" style="padding-top:32px;">
+  <div class="section-head left">
+    <span class="eyebrow">Marketplace</span>
+    <h2>Shop from traders across Smart Traders</h2>
+  </div>
+
+  <div class="filters-bar">
+    <div class="search-wrap"><span class="icon">🔎</span><input type="text" id="shop-search" placeholder="Search products..."></div>
+    <select id="filter-category"><option value="">All categories</option></select>
+    <select id="filter-sort">
+      <option value="new">Newest</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="rating">Top Rated</option>
+    </select>
+  </div>
+
+  <div class="grid-3" id="shop-grid"></div>
+  <div class="empty-state" id="shop-empty" style="display:none;"><div class="glyph">🛍️</div><p>No products match your search yet.</p></div>
+  <div class="pagination" id="shop-pagination"></div>
+
+  <div class="section" id="my-orders">
+    <div class="section-head left"><span class="eyebrow">My orders</span><h2>Order history &amp; tracking</h2></div>
+    <div class="card panel" style="max-width:900px;">
+      <div class="table-wrap"><table id="my-orders-table"><thead><tr><th>Order No.</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+      <div class="empty-state" id="my-orders-empty" style="display:none;"><div class="glyph">🧾</div><p>Login and place an order to see it here.</p></div>
+    </div>
+  </div>
+</main>
+
+<!-- Cart drawer -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer">
+  <div class="cart-head"><h3 style="margin:0;">Your Cart</h3><button class="icon-btn" id="btn-close-cart">✕</button></div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-foot">
+    <div class="receipt-row"><span>Subtotal</span><strong id="cart-subtotal" class="mono">KES 0</strong></div>
+    <div class="receipt-row"><span>Delivery Fee</span><strong id="cart-delivery" class="mono">KES 200</strong></div>
+    <div class="receipt-total"><span>Total</span><span id="cart-total" class="mono">KES 0</span></div>
+    <button class="btn btn-accent btn-block" id="btn-checkout" style="margin-top:14px;">Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout / receipt modal -->
+<div class="modal-backdrop" id="receipt-modal">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Order confirmed 🎉</h3><button class="icon-btn" data-close-modal="receipt-modal">✕</button></div>
+    <div class="receipt" id="receipt-content"></div>
+    <button class="btn btn-primary btn-block" data-close-modal="receipt-modal" style="margin-top:14px;">Done</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="products.js"></script>
+</body>
+</html>
