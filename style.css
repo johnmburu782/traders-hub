@@ -376,4 +376,4 @@ tr.overdue td{ color:var(--red); }
 .text-faint{ color:var(--ink-faint); }
 .tag{ display:inline-block; padding:3px 10px; border-radius:999px; background:var(--paper-alt); font-size:12px; font-weight:600; color:var(--ink-soft); }
 .divider{ height:1px; background:var(--border); margin:18px 0; border:none; }
-.chart-wrap{ position:relative; height:260px; }
+.chart-wrap{ position:relative; height:260px; } 
